@@ -23,5 +23,6 @@ public class GitHubRepo {
     GitHubRepo(String name, Integer stargazers_count, String html_url) {
         this.name = name;
         this.stargazers_count = stargazers_count;
+        this.html_url = html_url;
     }
 }
