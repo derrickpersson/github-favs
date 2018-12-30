@@ -14,12 +14,13 @@ public class GitHubRepo {
     private @Id @GeneratedValue Long id;
     private String name;
     private Integer stargazers_count;
+    private String html_url;
 
     GitHubRepo(){
 
     }
 
-    GitHubRepo(String name, Integer stargazers_count) {
+    GitHubRepo(String name, Integer stargazers_count, String html_url) {
         this.name = name;
         this.stargazers_count = stargazers_count;
     }
