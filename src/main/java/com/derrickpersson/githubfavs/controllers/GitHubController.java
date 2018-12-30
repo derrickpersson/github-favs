@@ -1,16 +1,24 @@
 package com.derrickpersson.githubfavs.controllers;
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.derrickpersson.githubfavs.impl.GitHubRepo;
+import com.derrickpersson.githubfavs.impl.GitHubRepoRepository;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import java.util.List;
 
 @RestController
 public class GitHubController {
 
-    @RequestMapping(path = "/", method = GET )
-    public String getTopGitHubRepos(){
-        return "{\"gitHubRepos\": \"TEST\"}";
+    private final GitHubRepoRepository gitHubRepoRepository;
+
+    GitHubController(GitHubRepoRepository gitHubRepoRepository){
+        this.gitHubRepoRepository = gitHubRepoRepository;
+    }
+
+    @GetMapping("/repos")
+    List<GitHubRepo> all(){
+        return gitHubRepoRepository.findAll();
     }
 
 }
