@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Configuration
@@ -24,10 +25,15 @@ public class SeedDatabase {
     CommandLineRunner initDatabase(GitHubRepoRepository repository) {
         return args -> {
             RestTemplate restTemplate = new RestTemplate();
-            GitHubRepoOverview gitHubRepoOverview = restTemplate.getForObject(this.APIUrl, GitHubRepoOverview.class);
-            gitHubRepoOverview.getItems().forEach(gitHubRepo -> {
-                log.info("Seeding database.... " + repository.save(gitHubRepo));
-            });
+//            GitHubRepoOverview gitHubRepoOverview = restTemplate.getForObject(this.APIUrl, GitHubRepoOverview.class);
+//            gitHubRepoOverview.getItems().forEach(gitHubRepo -> {
+//                log.info("Seeding database.... " + repository.save(gitHubRepo));
+//            });
+
+            ResponseEntity<GitHubCommit[]> responseEntity  = restTemplate.getForEntity(this.APIUrl, GitHubCommit[].class);
+            GitHubCommit[] gitHubCommits = responseEntity.getBody();
+            List<GitHubCommit> gitHubCommitsList = Arrays.asList(gitHubCommits);
+            gitHubCommitsList.forEach(gitHubCommit -> log.info("GitHubCommit: " + gitHubCommit.toString()));
         };
     }
 }
