@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 @Data
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitHubCommit {
+public class GitHubCommit extends AbstractGitCommit {
     private @Id @GeneratedValue Long id;
 //    private @ManyToOne GitHubRepo gitHubRepo;
     private String sha;

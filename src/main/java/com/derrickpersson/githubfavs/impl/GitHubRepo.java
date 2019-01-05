@@ -10,7 +10,7 @@ import javax.persistence.Id;
 @Data
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitHubRepo {
+public class GitHubRepo extends AbstractGitRepo {
     private @Id @GeneratedValue Long id;
     private String name;
     private Integer stargazers_count;
