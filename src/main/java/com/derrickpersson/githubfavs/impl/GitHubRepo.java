@@ -6,6 +6,8 @@ import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+import java.util.List;
 
 @Data
 @Entity
@@ -16,6 +18,10 @@ public class GitHubRepo extends AbstractGitRepo {
     public Integer stargazers_count;
     public String html_url;
     public String url;
+
+    // TODO: create proper object to handle view layer requirements
+    @Transient
+    public List<GitHubCommit> commits;
 
     GitHubRepo(){
 

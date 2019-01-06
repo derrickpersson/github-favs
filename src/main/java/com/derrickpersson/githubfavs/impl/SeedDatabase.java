@@ -21,19 +21,28 @@ public class SeedDatabase {
     private String APIUrl;
 
     @Value("${gitHubCommitsResource}")
-    private String CommitsResource;
+    private String commitsResource;
+
+    @Value("${maxRepoResults}")
+    private Integer maxRepoResults;
+
+    @Value("${maxCommitResults}")
+    private Integer maxCommitResults;
 
     @Bean
     CommandLineRunner initDatabase(GitHubService service) {
         return args -> {
             RestTemplate restTemplate = new RestTemplate();
-            GitHubRepoOverview gitHubRepoOverview = restTemplate.getForObject(this.APIUrl, GitHubRepoOverview.class);
-            gitHubRepoOverview.getItems().forEach(gitHubRepo -> {
-                log.info("Seeding Database.... " + service.saveRepo(gitHubRepo));
-                ResponseEntity<GitHubCommit[]> responseEntity  = restTemplate.getForEntity(gitHubRepo.getUrl() + this.CommitsResource, GitHubCommit[].class);
+            GitHubRepoList gitHubRepoList = restTemplate.getForObject(this.APIUrl, GitHubRepoList.class);
+            gitHubRepoList.getItems().subList(0, this.maxRepoResults).forEach(gitHubRepo -> {
+                GitHubRepo savedGitHubRepo = service.saveRepo(gitHubRepo);
+                ResponseEntity<GitHubCommit[]> responseEntity  = restTemplate.getForEntity(savedGitHubRepo.getUrl() + this.commitsResource, GitHubCommit[].class);
                 GitHubCommit[] gitHubCommits = responseEntity.getBody();
                 List<GitHubCommit> gitHubCommitsList = Arrays.asList(gitHubCommits);
-                gitHubCommitsList.forEach(gitHubCommit -> log.info("GitHubCommit: " + gitHubCommit.toString()));
+                gitHubCommitsList.subList(0, this.maxCommitResults).forEach( gitHubCommit -> {
+                    gitHubCommit.setGitRepoId(savedGitHubRepo.getId());
+                    service.saveCommit(gitHubCommit);
+                });
             });
         };
     }
