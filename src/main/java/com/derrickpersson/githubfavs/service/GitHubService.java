@@ -1,20 +1,29 @@
 package com.derrickpersson.githubfavs.service;
 
-import com.derrickpersson.githubfavs.impl.GitHubRepo;
-import com.derrickpersson.githubfavs.impl.GitHubRepoRepository;
+import com.derrickpersson.githubfavs.impl.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class GitHubService {
-    private final GitHubRepoRepository gitHubRepoRepository;
+public class GitHubService extends AbstractGitService {
+    private final IGitRepoRepository gitHubRepoRepository;
+    private final IGitCommitRepository gitHubCommitRepository;
 
-    GitHubService(GitHubRepoRepository repository) {
-        this.gitHubRepoRepository = repository;
+    GitHubService(IGitRepoRepository gitHubRepoRepository, IGitCommitRepository gitHubCommitRepository) {
+        this.gitHubRepoRepository = gitHubRepoRepository;
+        this.gitHubCommitRepository = gitHubCommitRepository;
     }
 
-    public List<GitHubRepo> returnAll(){
+    public List<GitHubRepo> returnAllGitRepos(){
         return gitHubRepoRepository.findAll();
+    }
+
+    public GitHubRepo saveRepo(GitHubRepo gitHubRepo){
+        return gitHubRepoRepository.save(gitHubRepo);
+    }
+
+    public List<GitHubCommit> returnAllGitCommits(){
+        return gitHubCommitRepository.findAll();
     }
 }

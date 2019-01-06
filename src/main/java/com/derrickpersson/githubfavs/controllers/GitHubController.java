@@ -18,7 +18,7 @@ public class GitHubController {
 
     @GetMapping("/repos")
     List<GitHubRepo> all(){
-        return gitHubService.returnAll();
+        return gitHubService.returnAllGitRepos();
     }
 
 }

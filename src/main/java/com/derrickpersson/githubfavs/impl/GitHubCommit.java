@@ -1,28 +1,30 @@
 package com.derrickpersson.githubfavs.impl;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import java.util.Map;
 
 @Data
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GitHubCommit extends AbstractGitCommit {
     private @Id @GeneratedValue Long id;
-//    private @ManyToOne GitHubRepo gitHubRepo;
-    private String sha;
-    private String node_id;
+    private String commitAuthor;
+    private String commitMessage;
 
 
     GitHubCommit() {}
 
-    GitHubCommit(String sha, String node_id) {
-//        this.gitHubRepo = gitHubRepo;
-        this.sha = sha;
-        this.node_id = node_id;
+    @JsonProperty("commit")
+    private void unpackNested(Map<String, Object> commit) {
+        this.commitMessage = (String)commit.get("message");
+
+        Map<String, String> commitAuthor = (Map<String, String>)commit.get("author");
+        this.commitAuthor = commitAuthor.get("name");
     }
 }

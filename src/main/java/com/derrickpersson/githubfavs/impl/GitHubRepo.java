@@ -11,11 +11,11 @@ import javax.persistence.Id;
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GitHubRepo extends AbstractGitRepo {
-    private @Id @GeneratedValue Long id;
-    private String name;
-    private Integer stargazers_count;
-    private String html_url;
-    private String url;
+    public @Id @GeneratedValue Long id;
+    public String name;
+    public Integer stargazers_count;
+    public String html_url;
+    public String url;
 
     GitHubRepo(){
 
