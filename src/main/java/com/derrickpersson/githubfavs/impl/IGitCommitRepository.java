@@ -5,11 +5,11 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface IGitCommitRepository extends JpaRepository<GitHubCommit, Long> {
+public interface IGitCommitRepository extends JpaRepository<IGitCommit, Long> {
 
     @Query(
             value = "SELECT * FROM GIT_HUB_COMMIT WHERE GIT_REPO_ID = :#{#gitRepoId}",
             nativeQuery = true
     )
-    List<GitHubCommit> returnAllGitCommits(Long gitRepoId);
+    List<IGitCommit> returnAllGitCommits(Long gitRepoId);
 }

@@ -13,7 +13,7 @@ import java.util.Map;
 @Data
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitHubCommit extends AbstractGitCommit {
+public class GitHubCommit implements IGitCommit{
     private @Id @GeneratedValue Long id;
 
     private Long gitRepoId;

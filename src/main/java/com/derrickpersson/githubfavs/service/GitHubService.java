@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class GitHubService extends AbstractGitService {
+public class GitHubService implements IGitRepoService, IGitCommitService {
     private final IGitRepoRepository gitHubRepoRepository;
     private final IGitCommitRepository gitHubCommitRepository;
 
@@ -16,26 +16,26 @@ public class GitHubService extends AbstractGitService {
         this.gitHubCommitRepository = gitHubCommitRepository;
     }
 
-    public List<GitHubRepo> returnAllGitRepos(){
+    public List<IGitRepo> returnAllGitRepos(){
         return gitHubRepoRepository.findAll();
     }
 
-    public GitHubRepo saveRepo(GitHubRepo gitHubRepo){
+    public IGitRepo saveRepo(IGitRepo gitHubRepo){
         return gitHubRepoRepository.save(gitHubRepo);
     }
 
-    public GitHubRepo getRepo(Long gitHubRepoId) throws GitRepoNotFoundException {
-        GitHubRepo gitHubRepo = gitHubRepoRepository.findById(gitHubRepoId)
+    public IGitRepo getRepo(Long gitHubRepoId) throws GitRepoNotFoundException {
+        IGitRepo gitHubRepo = gitHubRepoRepository.findById(gitHubRepoId)
                 .orElseThrow(() -> new GitRepoNotFoundException(gitHubRepoId));
         gitHubRepo.setCommits(this.returnAllGitCommits(gitHubRepo.getId()));
         return gitHubRepo;
     }
 
-    public List<GitHubCommit> returnAllGitCommits(Long gitHubRepoId){
+    public List<IGitCommit> returnAllGitCommits(Long gitHubRepoId){
         return gitHubCommitRepository.returnAllGitCommits(gitHubRepoId);
     }
 
-    public GitHubCommit saveCommit(GitHubCommit gitHubCommit){
+    public IGitCommit saveCommit(IGitCommit gitHubCommit){
         return gitHubCommitRepository.save(gitHubCommit);
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GitHubRepoList extends AbstractGitRepoList {
+public class GitHubRepoList implements IGitRepoList{
     private List<GitHubRepo> items;
 
 }

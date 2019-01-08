@@ -1,6 +1,5 @@
 package com.derrickpersson.githubfavs.impl;
 
-import com.derrickpersson.githubfavs.service.AbstractGitService;
 import com.derrickpersson.githubfavs.service.GitHubService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,7 +34,7 @@ public class SeedDatabase {
             RestTemplate restTemplate = new RestTemplate();
             GitHubRepoList gitHubRepoList = restTemplate.getForObject(this.APIUrl, GitHubRepoList.class);
             gitHubRepoList.getItems().subList(0, this.maxRepoResults).forEach(gitHubRepo -> {
-                GitHubRepo savedGitHubRepo = service.saveRepo(gitHubRepo);
+                IGitRepo savedGitHubRepo = service.saveRepo(gitHubRepo);
                 ResponseEntity<GitHubCommit[]> responseEntity  = restTemplate.getForEntity(savedGitHubRepo.getUrl() + this.commitsResource, GitHubCommit[].class);
                 GitHubCommit[] gitHubCommits = responseEntity.getBody();
                 List<GitHubCommit> gitHubCommitsList = Arrays.asList(gitHubCommits);

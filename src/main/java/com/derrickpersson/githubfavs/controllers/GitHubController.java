@@ -1,7 +1,7 @@
 package com.derrickpersson.githubfavs.controllers;
 
-import com.derrickpersson.githubfavs.impl.GitHubCommit;
-import com.derrickpersson.githubfavs.impl.GitHubRepo;
+import com.derrickpersson.githubfavs.impl.IGitCommit;
+import com.derrickpersson.githubfavs.impl.IGitRepo;
 import com.derrickpersson.githubfavs.service.GitHubService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,17 +19,17 @@ public class GitHubController {
     }
 
     @GetMapping("/repos")
-    List<GitHubRepo> all(){
+    List<IGitRepo> all(){
         return gitHubService.returnAllGitRepos();
     }
 
     @GetMapping("/repos/{id}")
-    GitHubRepo getOne(@PathVariable("id") long id) {
+    IGitRepo getOne(@PathVariable("id") long id) {
         return gitHubService.getRepo(id);
     }
 
     @GetMapping("/repos/{id}/commits")
-    List<GitHubCommit> allCommits(@PathVariable("id") long id) {
+    List<IGitCommit> allCommits(@PathVariable("id") long id) {
         return gitHubService.returnAllGitCommits(id);
     }
 
