@@ -1,9 +1,9 @@
 package com.derrickpersson.githubfavs.service;
 
 import com.derrickpersson.githubfavs.impl.*;
+import com.derrickpersson.githubfavs.util.GitRepoNotFoundException;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Component
@@ -24,8 +24,9 @@ public class GitHubService extends AbstractGitService {
         return gitHubRepoRepository.save(gitHubRepo);
     }
 
-    public GitHubRepo getRepo(Long gitHubRepoId){
-        GitHubRepo gitHubRepo = gitHubRepoRepository.findById(gitHubRepoId).orElseThrow(() -> new EntityNotFoundException());
+    public GitHubRepo getRepo(Long gitHubRepoId) throws GitRepoNotFoundException {
+        GitHubRepo gitHubRepo = gitHubRepoRepository.findById(gitHubRepoId)
+                .orElseThrow(() -> new GitRepoNotFoundException(gitHubRepoId));
         gitHubRepo.setCommits(this.returnAllGitCommits(gitHubRepo.getId()));
         return gitHubRepo;
     }
