@@ -24,7 +24,7 @@ public class GitHubCommit implements IGitCommit{
     private String commitMessage;
 
 
-    GitHubCommit() {}
+    public GitHubCommit() {}
 
     @JsonProperty("commit")
     private void unpackNested(Map<String, Object> commit) {
@@ -32,5 +32,9 @@ public class GitHubCommit implements IGitCommit{
 
         Map<String, String> commitAuthor = (Map<String, String>)commit.get("author");
         this.commitAuthor = commitAuthor.get("name");
+    }
+
+    public Long setGitRepoId(Long id){
+        return this.gitRepoId = id;
     }
 }

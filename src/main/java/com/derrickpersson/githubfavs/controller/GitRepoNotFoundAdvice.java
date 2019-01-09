@@ -1,4 +1,4 @@
-package com.derrickpersson.githubfavs.controllers;
+package com.derrickpersson.githubfavs.controller;
 
 import com.derrickpersson.githubfavs.util.GitRepoNotFoundException;
 import org.springframework.http.HttpStatus;

@@ -10,6 +10,7 @@ import javax.persistence.Transient;
 import java.util.List;
 
 @Data
+@Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GitHubRepo implements IGitRepo {
     private @Id @GeneratedValue Long id;
@@ -20,19 +21,7 @@ public class GitHubRepo implements IGitRepo {
 
     // TODO: create proper object to handle view layer requirements
     @Transient
-    public List<IGitCommit> commits;
-    public List<IGitCommit> setCommits(List<IGitCommit> gitCommits){
-        return this.commits = gitCommits;
-    }
+    public List<GitHubCommit> commits;
 
-    GitHubRepo(){
-
-    }
-
-    GitHubRepo(String name, Integer stargazers_count, String html_url, String url) {
-        this.name = name;
-        this.stargazers_count = stargazers_count;
-        this.html_url = html_url;
-        this.url = url;
-    }
+    public GitHubRepo(){}
 }

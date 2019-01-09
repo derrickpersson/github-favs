@@ -1,4 +1,4 @@
 package com.derrickpersson.githubfavs.controllerTest;
 
-public class GitControllerTest {
+public class GitHubControllerTest {
 }
