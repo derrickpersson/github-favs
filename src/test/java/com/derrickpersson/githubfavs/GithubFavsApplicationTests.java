@@ -1,12 +1,20 @@
 package com.derrickpersson.githubfavs;
 
+import com.derrickpersson.githubfavs.controllerTest.GitHubControllerTest;
+import com.derrickpersson.githubfavs.implTest.GitHubCommitTest;
+import com.derrickpersson.githubfavs.implTest.GitHubRepoTest;
+import com.derrickpersson.githubfavs.serviceTest.GitHubServiceTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.runners.Suite;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+		GitHubControllerTest.class,
+		GitHubCommitTest.class,
+		GitHubRepoTest.class,
+		GitHubServiceTest.class
+})
 public class GithubFavsApplicationTests {
 
 	@Test
