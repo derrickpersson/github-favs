@@ -14,22 +14,22 @@ public class GitHubController {
 
     private final GitHubService gitHubService;
 
-    GitHubController(GitHubService gitHubService){
+    public GitHubController(GitHubService gitHubService){
         this.gitHubService = gitHubService;
     }
 
     @GetMapping("/repos")
-    List<GitHubRepo> all(){
+    public List<GitHubRepo> all(){
         return gitHubService.returnAllGitRepos();
     }
 
     @GetMapping("/repos/{id}")
-    GitHubRepo getOne(@PathVariable("id") long id) {
+    public GitHubRepo getOne(@PathVariable("id") long id) {
         return gitHubService.getRepo(id);
     }
 
     @GetMapping("/repos/{id}/commits")
-    List<GitHubCommit> allCommits(@PathVariable("id") long id) {
+    public List<GitHubCommit> allCommits(@PathVariable("id") long id) {
         return gitHubService.returnAllGitCommits(id);
     }
 
